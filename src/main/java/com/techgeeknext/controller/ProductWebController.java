@@ -38,7 +38,7 @@ public class ProductWebController
 
 	@GetMapping(value = "/{id}")
 	// using Mono for single employee
-	public Mono<Product> findById(@PathVariable("id") Long id)
+	public Mono<Product> findById(@PathVariable Long id)
 	{
 		return productService.findById(id);
 	}
@@ -54,7 +54,7 @@ public class ProductWebController
 	@PutMapping(value = "/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	// using Mono for single employee
-	public Mono<Product> update(@RequestBody Product p, @PathVariable("id") Long id)
+	public Mono<Product> update(@RequestBody Product p, @PathVariable Long id)
 	{
 		p.setId(id);
 		Mono<Product> prd = productService.update(p);
@@ -72,7 +72,7 @@ public class ProductWebController
 	@DeleteMapping(value = "/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	// using Mono<Void> when no response content is expected
-	public Mono<Boolean> delete(@PathVariable("id") Long id)
+	public Mono<Boolean> delete(@PathVariable Long id)
 	{
 		return productService.delete(id);
 	}
