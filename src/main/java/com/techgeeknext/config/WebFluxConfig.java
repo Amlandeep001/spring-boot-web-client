@@ -1,5 +1,6 @@
 package com.techgeeknext.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -20,7 +21,7 @@ import reactor.netty.http.client.HttpClient;
 public class WebFluxConfig implements WebFluxConfigurer
 {
 	@Bean
-	WebClient getWebClient()
+	WebClient getWebClient(@Value("${product.service.baseUrl}") String baseUrl)
 	{
 		HttpClient httpClient = HttpClient.create()
 				.wiretap(true) // for logging request and response 
@@ -32,7 +33,7 @@ public class WebFluxConfig implements WebFluxConfigurer
 		ClientHttpConnector connector = new ReactorClientHttpConnector(httpClient.wiretap(true));
 
 		return WebClient.builder()
-				.baseUrl("http://localhost:8060")
+				.baseUrl(baseUrl)
 				.clientConnector(connector)
 				.defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
 				.build();
