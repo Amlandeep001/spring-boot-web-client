@@ -30,7 +30,7 @@ public class WebFluxConfig implements WebFluxConfigurer
 						.addHandlerLast(new ReadTimeoutHandler(10))
 						.addHandlerLast(new WriteTimeoutHandler(10)));
 
-		ClientHttpConnector connector = new ReactorClientHttpConnector(httpClient.wiretap(true));
+		ClientHttpConnector connector = new ReactorClientHttpConnector(httpClient);
 
 		return WebClient.builder()
 				.baseUrl(baseUrl)
